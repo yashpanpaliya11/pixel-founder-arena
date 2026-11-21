@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 const {
   CompanionController,
   diagnosticText,
+  shortDebateRoast,
 } = require("../src/controller.cjs");
 async function fixture() {
   const core = await import("founder-fightclub/browser");
@@ -76,8 +77,14 @@ test("all configured debate topics use founder objects and include targeted roas
       assert.ok(c.selected.includes(line.founderId));
       assert.ok(line.roast);
       assert.notEqual(line.founderId, line.targetId);
+      assert.ok(line.roast.split(/\s+/).length <= 18);
+      assert.ok(line.roast.length <= 130);
     }
   }
+});
+test("debate punchlines drop the added second jab", () => {
+  assert.equal(shortDebateRoast("Jensen, your MRR is imaginary. Put the GPU away."), "Jensen, your MRR is imaginary.");
+  assert.equal(shortDebateRoast("Elon, scale scale bol raha hai. Pehla customer kidhar hai? Extra jab."), "Elon, scale scale bol raha hai.");
 });
 test("diagnostics map language-server messages to useful guides", () => {
   assert.match(diagnosticText(error), /^SyntaxError/);

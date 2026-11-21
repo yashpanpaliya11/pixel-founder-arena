@@ -18,9 +18,31 @@ for (const id of [
   $(id).addEventListener("click", () => send(id));
 for (const id of ["language", "topic"])
   $(id).addEventListener("change", (e) => send(id, e.target.value));
+$("voice").addEventListener("click", () => send("voice", !state.voice));
+function stopVoice() {
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+}
+function say(id) {
+  if (!state.voice || state.paused || !("speechSynthesis" in window)) return;
+  stopVoice();
+  const speakerIndex = Math.max(0, actors.findIndex((actor) => actor.founder.id === id));
+  const words = state.language === "hinglish"
+    ? ["Gadha!", "Dhakkan!", "Nalayak!"]
+    : ["Noob!", "Clown!", "Idiot!"];
+  const utterance = new SpeechSynthesisUtterance(words[speakerIndex % words.length]);
+  utterance.lang = state.language === "hinglish" ? "hi-IN" : "en-US";
+  utterance.rate = 1.15;
+  utterance.volume = 0.75;
+  utterance.pitch = [0.9, 1.05, 1.2][speakerIndex % 3];
+  const voices = window.speechSynthesis.getVoices();
+  const matchingVoices = voices.filter((voice) => voice.lang.startsWith(state.language === "hinglish" ? "hi" : "en"));
+  utterance.voice = matchingVoices[speakerIndex % matchingVoices.length] || null;
+  window.speechSynthesis.speak(utterance);
+}
 function clearDebate() {
   debateTimers.forEach(clearTimeout);
   debateTimers = [];
+  stopVoice();
   actors.forEach((a) => {
     a.bubble.hidden = true;
     a.element.classList.remove("speaking");
@@ -34,15 +56,24 @@ function speak(id, text) {
   const a = actors.find((a) => a.founder.id === id) || actors[0];
   if (!a) return;
   a.bubble.textContent = text;
+  say(a.founder.id);
   a.bubble.hidden = false;
   a.element.classList.add("speaking");
-  a.until = Date.now() + 14000;
+  a.until = Date.now() + 6500;
   a.x = Math.max(88, Math.min($("stage").clientWidth - 160, a.x));
   $("welcome").hidden = true;
 }
 function render(next) {
   state = next;
+  if (state.paused) clearDebate();
+  else if (!state.voice) stopVoice();
   $("pause").textContent = state.paused ? "Resume" : "Pause";
+  $("voice").textContent = `Voice: ${state.voice ? "on" : "off"}`;
+  $("voice").setAttribute("aria-pressed", String(state.voice));
+  $("voice").disabled = !("speechSynthesis" in window);
+  $("voice").title = $("voice").disabled
+    ? "Voice is unavailable in this editor"
+    : "Speak founder roasts aloud";
   $("language").value = state.language;
   $("topic").replaceChildren(
     ...state.topics.map((t) => {
@@ -126,13 +157,13 @@ window.addEventListener("message", ({ data: m }) => {
           }
           $("message").textContent =
             `${m.debate.topic} debate · ${m.debate.note}`;
-        }, i * 9000),
+        }, i * 6500),
       ),
     );
     debateTimers.push(
       setTimeout(() => {
         $("message").textContent = m.debate.takeaway;
-      }, m.debate.lines.length * 9000),
+      }, m.debate.lines.length * 6500),
     );
   }
 });
@@ -167,4 +198,5 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+window.addEventListener("pagehide", stopVoice);
 send("ready");

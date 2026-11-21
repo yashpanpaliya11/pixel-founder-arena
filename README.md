@@ -10,11 +10,11 @@ Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API 
 
 The **IDE companion extension** puts wandering pixel founders in the editor's bottom panel. It uses the published npm engine and reacts to real diagnostics while you type.
 
-1. [Install directly from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub), or [download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.2.1/founder-fightclub-0.2.1.vsix).
+1. [Install directly from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub), or [download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.3.0/founder-fightclub-0.3.0.vsix).
 2. In VS Code / Cursor: **Extensions → … → Install from VSIX…**.
 3. Command Palette → **Founder Fightclub: Open Companions**.
 
-Choose two or three small founders, select English/Hinglish roasts, and keep coding. A reported syntax error triggers a roast plus English hints; resolving all editor errors in the active file triggers a celebration. Startup debates include targeted roasts. [Full extension guide](extensions/vscode/README.md).
+Choose two or three small founders, select English/Hinglish roasts, and keep coding. A reported syntax error triggers a roast bubble, one spoken roast word, and English hints; resolving all editor errors in the active file triggers a celebration. Startup debates use short written roasts and one word voice reactions. Voice can be toggled in the panel. [Full extension guide](extensions/vscode/README.md).
 
 **The npm package alone opens a browser arena. Install the extension for the IDE experience.** [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub) or use the GitHub VSIX. Supports VS Code and Cursor; other IDEs are not supported yet.
 

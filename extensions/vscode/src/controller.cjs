@@ -15,6 +15,12 @@ function diagnosticText(d) {
           : "TypeError: ") + m
   );
 }
+function shortDebateRoast(roast) {
+  const sentences = String(roast).match(/[^.!?]+[.!?]?/g) || [];
+  const line = (sentences[0] || "").trim();
+  const words = line.split(/\s+/);
+  return words.length > 18 ? `${words.slice(0, 18).join(" ").replace(/[,;:]$/, "")}…` : line;
+}
 class CompanionController {
   constructor(vscode, core, context) {
     Object.assign(this, { vscode, core, context });
@@ -139,6 +145,7 @@ class CompanionController {
       assets: this.assetUris,
       paused: this.paused,
       language: this.config().get("language", "en"),
+      voice: this.config().get("voice", true),
       topics: this.core.topics,
       topic: this.config().get("topic", "MRR"),
     });
@@ -155,6 +162,12 @@ class CompanionController {
       else if (m?.type === "language" && ["en", "hinglish"].includes(m.value))
         await this.config().update(
           "language",
+          m.value,
+          this.vscode.ConfigurationTarget.Global,
+        );
+      else if (m?.type === "voice" && typeof m.value === "boolean")
+        await this.config().update(
+          "voice",
           m.value,
           this.vscode.ConfigurationTarget.Global,
         );
@@ -305,18 +318,24 @@ class CompanionController {
   }
   debate() {
     if (this.paused) return;
+    const debate = this.core.createDebate({
+      topic: this.config().get("topic", "MRR"),
+      cast: this.core.founders.filter((f) => this.selected.includes(f.id)),
+      language: this.config().get("language", "en"),
+      intensity: this.config().get("intensity", "funny"),
+      project: {
+        name: this.vscode.workspace.workspaceFolders?.[0]?.name || "Your project",
+      },
+    });
     this.post({
       type: "debate",
-      debate: this.core.createDebate({
-        topic: this.config().get("topic", "MRR"),
-        cast: this.core.founders.filter((f) => this.selected.includes(f.id)),
-        language: this.config().get("language", "en"),
-        intensity: this.config().get("intensity", "funny"),
-        project: {
-          name:
-            this.vscode.workspace.workspaceFolders?.[0]?.name || "Your project",
-        },
-      }),
+      debate: {
+        ...debate,
+        lines: debate.lines.map((line) => ({
+          ...line,
+          roast: shortDebateRoast(line.roast),
+        })),
+      },
     });
   }
   startDebates() {
@@ -340,4 +359,4 @@ class CompanionController {
     this.disposables.forEach((d) => d.dispose());
   }
 }
-module.exports = { CompanionController, diagnosticText };
+module.exports = { CompanionController, diagnosticText, shortDebateRoast };
