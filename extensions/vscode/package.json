@@ -2,7 +2,7 @@
   "name": "founder-fightclub",
   "displayName": "Founder Fightclub \u2014 Pixel Coding Companions",
   "description": "Two or three pixel founders trade one-word roasts and cartoon punches in the VS Code or Cursor bottom panel, and react to real editor errors.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publisher": "yashpanpaliya11",
   "author": "Yash Panpaliya",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "check": "node --check src/extension.cjs && node --check src/controller.cjs && node --check media/companions.js",
     "test": "node --test test/*.test.cjs",
     "vscode:prepublish": "npm run check",
-    "package": "node -e \"require('node:fs').mkdirSync('../../ide', {recursive:true})\" && vsce package --out ../../ide/founder-fightclub-0.4.0.vsix"
+    "package": "node -e \"require('node:fs').mkdirSync('../../ide', {recursive:true})\" && vsce package --out ../../ide/founder-fightclub-0.4.1.vsix"
   },
   "dependencies": {
     "founder-fightclub": "1.0.0"
@@ -147,7 +147,7 @@
         "founderFightclub.voice": {
           "type": "boolean",
           "default": true,
-          "description": "Speak one playful roast word per debate or error reaction using the editor's speech voice. Toggle in the companion panel."
+          "description": "Speak one playful roast word per fight or error reaction. On macOS, uses the system Hindi voice for Hindi taunts. Toggle in the companion panel."
         },
         "founderFightclub.intensity": {
           "type": "string",

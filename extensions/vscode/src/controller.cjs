@@ -1,4 +1,5 @@
 const { randomBytes } = require("node:crypto");
+const { spawn } = require("node:child_process");
 const { readFileSync } = require("node:fs");
 const { join } = require("node:path");
 function diagnosticText(d) {
@@ -144,6 +145,7 @@ class CompanionController {
       paused: this.paused,
       language: this.config().get("language", "en"),
       voice: this.config().get("voice", true),
+      nativeVoice: process.platform === "darwin",
     });
   }
   async handle(m) {
@@ -167,6 +169,10 @@ class CompanionController {
           m.value,
           this.vscode.ConfigurationTarget.Global,
         );
+      else if (m?.type === "speak" &&
+        Object.values(fightWords).some((words) => words.includes(m.value)))
+        this.speakWord(m.value);
+      else if (m?.type === "stopVoice") this.stopVoice();
       else if (m?.type === "fight") this.fight();
       else if (m?.type === "sample") this.sample();
       else if (m?.type === "hint" && this.latestError) {
@@ -211,6 +217,7 @@ class CompanionController {
   }
   async togglePause() {
     this.paused = !this.paused;
+    if (this.paused) this.stopVoice();
     await this.context.globalState.update("paused", this.paused);
     this.state();
   }
@@ -322,8 +329,20 @@ class CompanionController {
       })),
     });
   }
+  speakWord(word) {
+    if (process.platform !== "darwin" || this.paused || !this.config().get("voice", true)) return;
+    this.stopVoice();
+    const voice = fightWords.hinglish.includes(word) ? "Lekha" : "Samantha";
+    this.voiceProcess = spawn("say", ["-v", voice, word], { stdio: "ignore" });
+    this.voiceProcess.on("error", () => { this.voiceProcess = null; });
+  }
+  stopVoice() {
+    this.voiceProcess?.kill();
+    this.voiceProcess = null;
+  }
   startFights() {
     clearInterval(this.fightTimer);
+    this.stopVoice();
     this.fightTimer = setInterval(
       () => {
         if (

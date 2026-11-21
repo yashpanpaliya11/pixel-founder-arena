@@ -4,12 +4,12 @@ Pixel founders wander along the bottom of **VS Code and Cursor** while you code.
 
 ## Install
 
-1. Download `founder-fightclub-0.4.0.vsix` from [GitHub Releases](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/tag/ide-v0.4.0).
+1. Download `founder-fightclub-0.4.1.vsix` from [GitHub Releases](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/tag/ide-v0.4.1).
 2. In VS Code, open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`). Choose **… → Install from VSIX…** and select the downloaded file.
 3. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run **Founder Fightclub: Open Companions**.
 4. The founders appear in the bottom panel. Resize the panel to about 280px tall for speech bubbles. You can keep coding in the editor above it.
 
-Or use `code --install-extension /path/to/founder-fightclub-0.4.0.vsix`. For Cursor, replace `code` with `cursor`.
+Or use `code --install-extension /path/to/founder-fightclub-0.4.1.vsix`. For Cursor, replace `code` with `cursor`.
 
 The extension is [public on the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub). You can also install the VSIX directly. Installing the npm core alone does not add an editor panel.
 
@@ -18,7 +18,7 @@ The extension is [public on the VS Code Marketplace](https://marketplace.visuals
 - **Automatic error reactions:** errors reported by your language extension in the active file trigger a roast and an English explanation. Use **Next hint** and **Go to error** to learn and navigate. Fix all reported errors in that file for a celebration.
 - **35 founders available, with two or three active:** choose two or three from the roster, or switch to **Indian cast** (Anupam Mittal, Peyush Bansal, Aadit Palicha).
 - **Pixel fights:** click **Fight!** and the chosen founders trade one-word insults with moving arms and legs, punch/kick motion, dust, and cartoon red hit pixels. Fights can start automatically while the panel is visible.
-- **Voice:** each fight taunt or coding error reaction speaks one word, while the coding error roast stays in its bubble. Hinglish mode uses Hindi words such as “गधा!” and “ढक्कन!” for fights. Voice is on by default; use **Voice: on/off** in the panel or the `founderFightclub.voice` setting. The editor uses available system speech voices. Click **Fight!** or **Sample roast** once if your editor requires a user action before audio plays.
+- **Voice:** each fight taunt or coding error reaction speaks one word, while the coding error roast stays in its bubble. Hinglish mode uses Hindi words such as “गधा!” and “ढक्कन!” for fights. On macOS the extension uses the system Hindi voice directly, so Devanagari taunts are spoken reliably. Other platforms use the editor's available speech voices. Voice is on by default; use **Voice: on/off** in the panel or the `founderFightclub.voice` setting.
 - **English/Hinglish roasts:** everything else stays English.
 - **Pause/Resume**, **Sample roast**, and native task completion reactions.
 

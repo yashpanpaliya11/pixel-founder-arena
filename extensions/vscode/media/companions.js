@@ -20,14 +20,21 @@ for (const id of ["language"])
   $(id).addEventListener("change", (e) => send(id, e.target.value));
 $("voice").addEventListener("click", () => send("voice", !state.voice));
 function stopVoice() {
+  if (state?.nativeVoice) send("stopVoice");
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
 }
 function say(id, word) {
-  if (!state.voice || state.paused || !("speechSynthesis" in window)) return;
+  if (!state.voice || state.paused) return;
   stopVoice();
   const speakerIndex = Math.max(0, actors.findIndex((actor) => actor.founder.id === id));
   const fallback = state.language === "hinglish" ? "गधा!" : "Noob!";
-  const utterance = new SpeechSynthesisUtterance(word || fallback);
+  const spokenWord = word || fallback;
+  if (state.nativeVoice) {
+    send("speak", spokenWord);
+    return;
+  }
+  if (!("speechSynthesis" in window)) return;
+  const utterance = new SpeechSynthesisUtterance(spokenWord);
   utterance.lang = state.language === "hinglish" ? "hi-IN" : "en-US";
   utterance.rate = 1.15;
   utterance.volume = 0.75;
@@ -70,7 +77,7 @@ function render(next) {
   $("pause").textContent = state.paused ? "Resume" : "Pause";
   $("voice").textContent = `Voice: ${state.voice ? "on" : "off"}`;
   $("voice").setAttribute("aria-pressed", String(state.voice));
-  $("voice").disabled = !("speechSynthesis" in window);
+  $("voice").disabled = !state.nativeVoice && !("speechSynthesis" in window);
   $("voice").title = $("voice").disabled
     ? "Voice is unavailable in this editor"
     : "Speak founder roasts aloud";

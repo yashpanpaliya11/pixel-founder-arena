@@ -85,6 +85,14 @@ test("Hindi fight taunts stay single-word", () => {
   assert.ok(fightWords.hinglish.every((word) => /^\S+!$/.test(word)));
   assert.ok(fightWords.hinglish.some((word) => word === "नालायक!"));
 });
+test("webview can request only bundled one-word voice lines", async () => {
+  const { c } = await fixture();
+  const spoken = [];
+  c.speakWord = (word) => spoken.push(word);
+  await c.handle({ type: "speak", value: "नालायक!" });
+  await c.handle({ type: "speak", value: "run arbitrary text" });
+  assert.deepEqual(spoken, ["नालायक!"]);
+});
 test("diagnostics map language-server messages to useful guides", () => {
   assert.match(diagnosticText(error), /^SyntaxError/);
   assert.match(

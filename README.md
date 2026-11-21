@@ -10,7 +10,7 @@ Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API 
 
 The **IDE companion extension** puts wandering pixel founders in the editor's bottom panel. It uses the published npm engine and reacts to real diagnostics while you type.
 
-1. [Install directly from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub), or [download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.4.0/founder-fightclub-0.4.0.vsix).
+1. [Install directly from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub), or [download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.4.1/founder-fightclub-0.4.1.vsix).
 2. In VS Code / Cursor: **Extensions → … → Install from VSIX…**.
 3. Command Palette → **Founder Fightclub: Open Companions**.
 
