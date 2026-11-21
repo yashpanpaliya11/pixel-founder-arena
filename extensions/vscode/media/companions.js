@@ -65,12 +65,10 @@ function render(next) {
     element.className = "actor";
     const sprite = document.createElement("div");
     sprite.className = "sprite";
-    const img = document.createElement("img");
-    img.src = state.assets[f.sheet];
-    img.alt = `${f.name} holding a ${f.company} badge`;
-    img.style.left = `${-f.column * 52}px`;
-    img.style.top = `${-f.row * 87}px`;
-    sprite.append(img);
+    sprite.setAttribute("role", "img");
+    sprite.setAttribute("aria-label", `${f.name} holding a ${f.company} badge`);
+    sprite.style.backgroundImage = `url("${state.assets[f.sheet]}")`;
+    sprite.style.backgroundPosition = `${-f.column * 80}px ${-f.row * 133.33}px`;
     const name = document.createElement("div");
     name.className = "name";
     name.textContent = f.name;
@@ -86,7 +84,7 @@ function render(next) {
       x:
         30 +
         i *
-          Math.max(65, ($("stage").clientWidth - 90) / state.founders.length),
+          Math.max(96, ($("stage").clientWidth - 120) / state.founders.length),
       direction: i % 2 ? 1 : -1,
       until: 0,
     };
@@ -121,7 +119,7 @@ window.addEventListener("message", ({ data: m }) => {
           const attacker = actors.find(a => a.founder.id === line.founderId);
           const target = actors.find(a => a.founder.id === line.targetId);
           if (attacker && target) {
-            attacker.x = Math.max(8, Math.min($("stage").clientWidth - 110, target.x + (attacker.x < target.x ? -48 : 48)));
+            attacker.x = Math.max(8, Math.min($("stage").clientWidth - 130, target.x + (attacker.x < target.x ? -72 : 72)));
             attacker.element.classList.add("attack");
             target.element.classList.add("hit");
             debateTimers.push(setTimeout(() => { attacker.element.classList.remove("attack"); target.element.classList.remove("hit"); }, 1300));
@@ -155,8 +153,8 @@ function frame(now) {
     a.element.classList.toggle("walking", walking);
     if (walking) {
       a.x += a.direction * 13 * dt;
-      if (a.x > width - 80) {
-        a.x = Math.max(0, width - 80);
+      if (a.x > width - 90) {
+        a.x = Math.max(0, width - 90);
         a.direction = -1;
       }
       if (a.x < 5) {

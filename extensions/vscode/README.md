@@ -4,12 +4,12 @@ Pixel founders wander along the bottom of **VS Code and Cursor** while you code.
 
 ## Install
 
-1. Download `founder-fightclub-0.2.0.vsix` from [GitHub Releases](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/tag/ide-v0.2.0).
+1. Download `founder-fightclub-0.2.1.vsix` from [GitHub Releases](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/tag/ide-v0.2.1).
 2. In VS Code, open Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`). Choose **… → Install from VSIX…** and select the downloaded file.
 3. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run **Founder Fightclub: Open Companions**.
 4. The founders appear in the bottom panel. Resize the panel to about 280px tall for speech bubbles. You can keep coding in the editor above it.
 
-Or use `code --install-extension /path/to/founder-fightclub-0.2.0.vsix`. For Cursor, replace `code` with `cursor`.
+Or use `code --install-extension /path/to/founder-fightclub-0.2.1.vsix`. For Cursor, replace `code` with `cursor`.
 
 The extension is [public on the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub). You can also install the VSIX directly. Installing the npm core alone does not add an editor panel.
 

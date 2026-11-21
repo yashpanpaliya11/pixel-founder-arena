@@ -38,7 +38,7 @@ select:focus-visible {
 main {
   position: relative;
   flex: 1;
-  min-height: 125px;
+  min-height: 175px;
   overflow: hidden;
 }
 #welcome {
@@ -58,34 +58,32 @@ main {
 .actor {
   position: absolute;
   bottom: 19px;
-  width: 52px;
+  width: 80px;
   text-align: center;
   z-index: 1;
 }
 .sprite {
-  width: 52px;
-  height: 77px;
+  width: 80px;
+  height: 116px;
   overflow: hidden;
   position: relative;
   image-rendering: pixelated;
   transform-origin: bottom;
 }
-.sprite img {
-  position: absolute;
-  width: 260px;
-  max-width: none;
-  pointer-events: none;
+.sprite {
+  background-repeat: no-repeat;
+  background-size: 400px auto;
 }
 .name {
   font-size: 10px;
   white-space: nowrap;
   margin-left: -18px;
-  width: 90px;
+  width: 110px;
   color: var(--vscode-descriptionForeground);
 }
 .bubble {
   position: absolute;
-  bottom: 90px;
+  bottom: 129px;
   left: 36px;
   transform: translateX(-50%);
   width: 190px;
