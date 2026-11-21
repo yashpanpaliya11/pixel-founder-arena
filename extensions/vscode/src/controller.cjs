@@ -23,9 +23,7 @@ class CompanionController {
       "elon",
       "jensen",
       "anupam",
-      "peyush",
-      "aadit",
-    ]);
+    ]).slice(0, 3);
     this.paused = context.globalState.get("paused", false);
     this.lastSeen = new Map();
     this.lastReaction = 0;
@@ -48,7 +46,7 @@ class CompanionController {
         v.commands.executeCommand("workbench.view.extension.founderFightclub"),
       chooseFounders: () => this.choose(),
       indianCast: () =>
-        this.setCast(["anupam", "peyush", "aadit", "aman", "nithin"]),
+        this.setCast(["anupam", "peyush", "aadit"]),
       togglePause: () => this.togglePause(),
       language: () => this.language(),
       debate: () => this.debate(),
@@ -152,7 +150,7 @@ class CompanionController {
         this.scheduleDiagnostics();
       } else if (m?.type === "choose") await this.choose();
       else if (m?.type === "indian")
-        await this.setCast(["anupam", "peyush", "aadit", "aman", "nithin"]);
+        await this.setCast(["anupam", "peyush", "aadit"]);
       else if (m?.type === "pause") await this.togglePause();
       else if (m?.type === "language" && ["en", "hinglish"].includes(m.value))
         await this.config().update(
@@ -192,20 +190,20 @@ class CompanionController {
         id: f.id,
         picked: this.selected.includes(f.id),
       })),
-      { canPickMany: true, title: "Choose two to five pixel founders" },
+      { canPickMany: true, title: "Choose two or three pixel founders" },
     );
     if (!p) return;
-    if (p.length < 2 || p.length > 5) {
+    if (p.length < 2 || p.length > 3) {
       this.vscode.window.showInformationMessage(
-        "Choose between two and five founders.",
+        "Choose two or three founders.",
       );
       return;
     }
     await this.setCast(p.map((f) => f.id));
   }
   async setCast(ids) {
-    this.selected = ids;
-    await this.context.globalState.update("selected", ids);
+    this.selected = ids.slice(0, 3);
+    await this.context.globalState.update("selected", this.selected);
     this.state();
   }
   async togglePause() {

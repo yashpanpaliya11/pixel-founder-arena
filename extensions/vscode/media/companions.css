@@ -38,7 +38,7 @@ select:focus-visible {
 main {
   position: relative;
   flex: 1;
-  min-height: 165px;
+  min-height: 125px;
   overflow: hidden;
 }
 #welcome {
@@ -58,13 +58,13 @@ main {
 .actor {
   position: absolute;
   bottom: 19px;
-  width: 72px;
+  width: 52px;
   text-align: center;
   z-index: 1;
 }
 .sprite {
-  width: 72px;
-  height: 106px;
+  width: 52px;
+  height: 77px;
   overflow: hidden;
   position: relative;
   image-rendering: pixelated;
@@ -72,23 +72,23 @@ main {
 }
 .sprite img {
   position: absolute;
-  width: 360px;
+  width: 260px;
   max-width: none;
   pointer-events: none;
 }
 .name {
   font-size: 10px;
   white-space: nowrap;
-  margin-left: -20px;
-  width: 112px;
+  margin-left: -18px;
+  width: 90px;
   color: var(--vscode-descriptionForeground);
 }
 .bubble {
   position: absolute;
-  bottom: 125px;
+  bottom: 90px;
   left: 36px;
   transform: translateX(-50%);
-  width: 230px;
+  width: 190px;
   max-height: 105px;
   overflow: auto;
   text-align: left;
@@ -151,3 +151,5 @@ footer {
     animation: none !important;
   }
 }
+
+.actor.attack .sprite{animation:attack .22s 4 alternate}.actor.hit .sprite{animation:hit .18s 5 alternate}@keyframes attack{to{transform:translateX(12px) rotate(-10deg)}}@keyframes hit{to{transform:translateX(8px) rotate(12deg)}}

@@ -68,8 +68,8 @@ function render(next) {
     const img = document.createElement("img");
     img.src = state.assets[f.sheet];
     img.alt = `${f.name} holding a ${f.company} badge`;
-    img.style.left = `${-f.column * 72}px`;
-    img.style.top = `${-f.row * 120}px`;
+    img.style.left = `${-f.column * 52}px`;
+    img.style.top = `${-f.row * 87}px`;
     sprite.append(img);
     const name = document.createElement("div");
     name.className = "name";
@@ -86,7 +86,7 @@ function render(next) {
       x:
         30 +
         i *
-          Math.max(85, ($("stage").clientWidth - 120) / state.founders.length),
+          Math.max(65, ($("stage").clientWidth - 90) / state.founders.length),
       direction: i % 2 ? 1 : -1,
       until: 0,
     };
@@ -117,7 +117,15 @@ window.addEventListener("message", ({ data: m }) => {
     m.debate.lines.forEach((line, i) =>
       debateTimers.push(
         setTimeout(() => {
-          speak(line.founderId, `${line.roast} ${line.text}`);
+          speak(line.founderId, line.roast);
+          const attacker = actors.find(a => a.founder.id === line.founderId);
+          const target = actors.find(a => a.founder.id === line.targetId);
+          if (attacker && target) {
+            attacker.x = Math.max(8, Math.min($("stage").clientWidth - 110, target.x + (attacker.x < target.x ? -48 : 48)));
+            attacker.element.classList.add("attack");
+            target.element.classList.add("hit");
+            debateTimers.push(setTimeout(() => { attacker.element.classList.remove("attack"); target.element.classList.remove("hit"); }, 1300));
+          }
           $("message").textContent =
             `${m.debate.topic} debate · ${m.debate.note}`;
         }, i * 9000),

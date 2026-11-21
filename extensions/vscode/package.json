@@ -1,8 +1,8 @@
 {
   "name": "founder-fightclub",
   "displayName": "Founder Fightclub \u2014 Pixel Coding Companions",
-  "description": "Pixel founders walk along your IDE's bottom panel, roast actual editor errors, and debate startups while you code.",
-  "version": "0.1.0",
+  "description": "Two or three tiny pixel founders fight and roast each other in the VS Code or Cursor bottom panel, and react to real editor errors.",
+  "version": "0.2.0",
   "publisher": "yashpanpaliya11",
   "author": "Yash Panpaliya",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "check": "node --check src/extension.cjs && node --check src/controller.cjs && node --check media/companions.js",
     "test": "node --test test/*.test.cjs",
     "vscode:prepublish": "npm run check",
-    "package": "node -e \"require('node:fs').mkdirSync('../../ide', {recursive:true})\" && vsce package --out ../../ide/founder-fightclub-0.1.0.vsix"
+    "package": "node -e \"require('node:fs').mkdirSync('../../ide', {recursive:true})\" && vsce package --out ../../ide/founder-fightclub-0.2.0.vsix"
   },
   "dependencies": {
     "founder-fightclub": "1.0.0"

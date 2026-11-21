@@ -10,13 +10,13 @@ Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API 
 
 The **IDE companion extension** puts wandering pixel founders in the editor's bottom panel. It uses the published npm engine and reacts to real diagnostics while you type.
 
-1. [Download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.1.0/founder-fightclub-0.1.0.vsix).
+1. [Download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.2.0/founder-fightclub-0.2.0.vsix).
 2. In VS Code / Cursor: **Extensions → … → Install from VSIX…**.
 3. Command Palette → **Founder Fightclub: Open Companions**.
 
-Choose your founders, select English/Hinglish roasts, and keep coding. A reported syntax error triggers a roast plus English hints; resolving all editor errors in the active file triggers a celebration. Startup debates include targeted roasts. [Full extension guide](extensions/vscode/README.md).
+Choose two or three small founders, select English/Hinglish roasts, and keep coding. A reported syntax error triggers a roast plus English hints; resolving all editor errors in the active file triggers a celebration. Startup debates include targeted roasts. [Full extension guide](extensions/vscode/README.md).
 
-**The npm package alone opens a browser arena. Install the extension for the IDE experience.** The VSIX is distributed here on GitHub, not yet through the VS Code Marketplace. Supports VS Code and Cursor; other IDEs are not supported yet.
+**The npm package alone opens a browser arena. Install the extension for the IDE experience.** The VSIX is distributed here on GitHub, Marketplace publishing requires publisher access. Supports VS Code and Cursor; other IDEs are not supported yet.
 
 ## Install from npm
 
@@ -107,7 +107,7 @@ The npm package and primary executable are both named `founder-fightclub`. The o
 
 ## What works in version 1
 
-- 35 bundled pixel characters holding company-logo badges; choose two to five for your active cast.
+- 35 bundled pixel characters holding company-logo badges; choose two or three for your active cast.
 - **Indian cast** preset: Anupam Mittal (Shaadi.com), Peyush Bansal (Lenskart), Aadit Palicha and Kaivalya Vohra (Zepto), and Aman Gupta (boAt). Also selectable: Vineeta Singh, Ritesh Agarwal, Deepinder Goyal, Nithin Kamath, and Nikhil Kamath. Each has company-badge artwork and fictional character-specific banter.
 - Topic-specific founder-versus-founder roasts with rotating speakers, direct targets, and replies. Debate roasts follow the English/Hinglish and intensity settings; practical advice stays English.
 - Idle, talking, attack/lunge, and celebration motions applied to static character art.
