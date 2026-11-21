@@ -61,7 +61,9 @@ main {
   width: 80px;
   text-align: center;
   z-index: 1;
+  transition: left .28s ease;
 }
+.actor.spectator { opacity: .45; }
 .sprite {
   width: 80px;
   height: 116px;
@@ -104,6 +106,68 @@ main {
 .actor.speaking .sprite {
   animation: talk 0.28s ease-in-out 6 alternate;
 }
+.actor.fighting .bubble {
+  width: max-content;
+  min-width: 66px;
+  max-width: 110px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  overflow: visible;
+}
+.limbs {
+  position: absolute;
+  inset: 0 0 15px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  opacity: 0;
+}
+.actor.attack .limbs, .actor.hit .limbs { opacity: 1; }
+.limbs i {
+  position: absolute;
+  display: block;
+  border: 2px solid #292331;
+  box-shadow: 2px 2px 0 #17151c;
+  transform-origin: top center;
+}
+.arm-left, .arm-right {
+  width: 10px;
+  height: 27px;
+  top: 64px;
+  background: #c89070;
+}
+.arm-left { left: 11px; transform: rotate(25deg); }
+.arm-right { right: 11px; transform: rotate(-25deg); }
+.leg-left, .leg-right {
+  width: 12px;
+  height: 25px;
+  top: 90px;
+  background: #34334e;
+}
+.leg-left { left: 22px; }
+.leg-right { right: 22px; }
+.actor.attack.punch .arm-right { animation: punch-arm .18s 4 alternate; }
+.actor.attack.punch .arm-left { animation: guard-arm .18s 4 alternate; }
+.actor.attack.kick .leg-right { animation: kick-leg .2s 4 alternate; }
+.actor.attack.kick .arm-left { animation: guard-arm .2s 4 alternate; }
+.actor.hit .limbs { animation: recoil .16s 5 alternate; }
+.impact {
+  position: absolute;
+  bottom: 66px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  z-index: 4;
+}
+.impact i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  image-rendering: pixelated;
+  animation: scatter 1.2s ease-out forwards;
+}
+.impact .dust { background: #b9a588; box-shadow: 7px 3px 0 #776b62; }
+.impact .red-pixel { background: #c53c43; box-shadow: 4px 4px 0 #862b35; }
 .actor.walking .sprite {
   animation: walk 0.25s infinite alternate;
 }
@@ -144,10 +208,18 @@ footer {
     transform: translateY(-14px);
   }
 }
+@keyframes punch-arm { to { transform: rotate(-95deg) translateY(-9px); } }
+@keyframes guard-arm { to { transform: rotate(75deg); } }
+@keyframes kick-leg { to { transform: rotate(-75deg) translateY(-12px); } }
+@keyframes recoil { to { transform: translateX(7px) rotate(8deg); } }
+@keyframes scatter { to { transform: translate(var(--dx), var(--dy)); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  .sprite {
+  .sprite, .limbs, .limbs i, .impact i {
     animation: none !important;
   }
 }
 
-.actor.attack .sprite{animation:attack .22s 4 alternate}.actor.hit .sprite{animation:hit .18s 5 alternate}@keyframes attack{to{transform:translateX(12px) rotate(-10deg)}}@keyframes hit{to{transform:translateX(8px) rotate(12deg)}}
+.actor.attack .sprite { animation: attack .22s 4 alternate; }
+.actor.hit .sprite { animation: hit .18s 5 alternate; }
+@keyframes attack { to { transform: translateX(12px) rotate(-10deg); } }
+@keyframes hit { to { transform: translateX(8px) rotate(12deg); } }

@@ -15,12 +15,10 @@ function diagnosticText(d) {
           : "TypeError: ") + m
   );
 }
-function shortDebateRoast(roast) {
-  const sentences = String(roast).match(/[^.!?]+[.!?]?/g) || [];
-  const line = (sentences[0] || "").trim();
-  const words = line.split(/\s+/);
-  return words.length > 18 ? `${words.slice(0, 18).join(" ").replace(/[,;:]$/, "")}…` : line;
-}
+const fightWords = {
+  en: ["Noob!", "Clown!", "Idiot!", "Amateur!", "Loser!", "Goof!"],
+  hinglish: ["गधा!", "ढक्कन!", "नालायक!", "बेवकूफ़!", "निकम्मा!", "बकवास!"],
+};
 class CompanionController {
   constructor(vscode, core, context) {
     Object.assign(this, { vscode, core, context });
@@ -55,7 +53,7 @@ class CompanionController {
         this.setCast(["anupam", "peyush", "aadit"]),
       togglePause: () => this.togglePause(),
       language: () => this.language(),
-      debate: () => this.debate(),
+      fight: () => this.fight(),
       sample: () => this.sample(),
     };
     for (const [n, a] of Object.entries(actions))
@@ -68,7 +66,7 @@ class CompanionController {
       v.workspace.onDidChangeConfiguration((e) => {
         if (e.affectsConfiguration("founderFightclub")) {
           this.state();
-          this.startDebates();
+          this.startFights();
         }
       }),
       v.tasks.onDidEndTaskProcess((e) => {
@@ -133,7 +131,7 @@ class CompanionController {
         }
       }),
     );
-    this.startDebates();
+    this.startFights();
   }
   post(m) {
     this.view?.webview.postMessage(m);
@@ -146,8 +144,6 @@ class CompanionController {
       paused: this.paused,
       language: this.config().get("language", "en"),
       voice: this.config().get("voice", true),
-      topics: this.core.topics,
-      topic: this.config().get("topic", "MRR"),
     });
   }
   async handle(m) {
@@ -171,13 +167,7 @@ class CompanionController {
           m.value,
           this.vscode.ConfigurationTarget.Global,
         );
-      else if (m?.type === "topic" && this.core.topics.includes(m.value))
-        await this.config().update(
-          "topic",
-          m.value,
-          this.vscode.ConfigurationTarget.Global,
-        );
-      else if (m?.type === "debate") this.debate();
+      else if (m?.type === "fight") this.fight();
       else if (m?.type === "sample") this.sample();
       else if (m?.type === "hint" && this.latestError) {
         const h = this.latestError.guide.hints;
@@ -316,47 +306,41 @@ class CompanionController {
       message: "Sample syntax error — this is a demonstration.",
     });
   }
-  debate() {
+  fight() {
     if (this.paused) return;
-    const debate = this.core.createDebate({
-      topic: this.config().get("topic", "MRR"),
-      cast: this.core.founders.filter((f) => this.selected.includes(f.id)),
-      language: this.config().get("language", "en"),
-      intensity: this.config().get("intensity", "funny"),
-      project: {
-        name: this.vscode.workspace.workspaceFolders?.[0]?.name || "Your project",
-      },
-    });
+    const cast = this.selected.filter((id) => this.core.founders.some((f) => f.id === id));
+    if (cast.length < 2) return;
+    const language = this.config().get("language", "en") === "hinglish" ? "hinglish" : "en";
+    const words = fightWords[language];
     this.post({
-      type: "debate",
-      debate: {
-        ...debate,
-        lines: debate.lines.map((line) => ({
-          ...line,
-          roast: shortDebateRoast(line.roast),
-        })),
-      },
+      type: "fight",
+      turns: Array.from({ length: 6 }, (_, i) => ({
+        founderId: cast[i % cast.length],
+        targetId: cast[(i + 1) % cast.length],
+        word: words[(i + Math.floor(Math.random() * words.length)) % words.length],
+        move: i % 2 ? "kick" : "punch",
+      })),
     });
   }
-  startDebates() {
-    clearInterval(this.debateTimer);
-    this.debateTimer = setInterval(
+  startFights() {
+    clearInterval(this.fightTimer);
+    this.fightTimer = setInterval(
       () => {
         if (
           this.view?.visible &&
           !this.paused &&
-          this.config().get("backgroundDebates", true) &&
+          this.config().get("backgroundFights", true) &&
           Date.now() - this.lastReaction > 20000
         )
-          this.debate();
+          this.fight();
       },
-      Math.max(30, this.config().get("debateInterval", 60)) * 1000,
+      Math.max(30, this.config().get("fightInterval", 60)) * 1000,
     );
   }
   dispose() {
     clearTimeout(this.diagnosticTimer);
-    clearInterval(this.debateTimer);
+    clearInterval(this.fightTimer);
     this.disposables.forEach((d) => d.dispose());
   }
 }
-module.exports = { CompanionController, diagnosticText, shortDebateRoast };
+module.exports = { CompanionController, diagnosticText, fightWords };

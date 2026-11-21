@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const {
   CompanionController,
   diagnosticText,
-  shortDebateRoast,
+  fightWords,
 } = require("../src/controller.cjs");
 async function fixture() {
   const core = await import("founder-fightclub/browser");
@@ -65,26 +65,25 @@ test("warnings, hidden panel and paused state do not trigger roasts", async () =
   c.inspectDiagnostics();
   assert.equal(messages.length, 1);
 });
-test("all configured debate topics use founder objects and include targeted roasts", async () => {
+test("pixel fight alternates founders with one-word targeted taunts", async () => {
   const { c, messages } = await fixture();
-  for (const topic of c.core.topics) {
-    c.config = () => ({ get: (k, f) => (k === "topic" ? topic : f) });
-    c.debate();
-    const d = messages.at(-1).debate;
-    assert.equal(d.topic, topic);
-    assert.equal(d.lines.length, 3);
-    for (const line of d.lines) {
-      assert.ok(c.selected.includes(line.founderId));
-      assert.ok(line.roast);
-      assert.notEqual(line.founderId, line.targetId);
-      assert.ok(line.roast.split(/\s+/).length <= 18);
-      assert.ok(line.roast.length <= 130);
+  for (const language of ["en", "hinglish"]) {
+    c.config = () => ({ get: (k, f) => (k === "language" ? language : f) });
+    c.fight();
+    const fight = messages.at(-1);
+    assert.equal(fight.type, "fight");
+    assert.equal(fight.turns.length, 6);
+    for (const turn of fight.turns) {
+      assert.ok(c.selected.includes(turn.founderId));
+      assert.ok(fightWords[language].includes(turn.word));
+      assert.notEqual(turn.founderId, turn.targetId);
+      assert.match(turn.move, /^(kick|punch)$/);
     }
   }
 });
-test("debate punchlines drop the added second jab", () => {
-  assert.equal(shortDebateRoast("Jensen, your MRR is imaginary. Put the GPU away."), "Jensen, your MRR is imaginary.");
-  assert.equal(shortDebateRoast("Elon, scale scale bol raha hai. Pehla customer kidhar hai? Extra jab."), "Elon, scale scale bol raha hai.");
+test("Hindi fight taunts stay single-word", () => {
+  assert.ok(fightWords.hinglish.every((word) => /^\S+!$/.test(word)));
+  assert.ok(fightWords.hinglish.some((word) => word === "नालायक!"));
 });
 test("diagnostics map language-server messages to useful guides", () => {
   assert.match(diagnosticText(error), /^SyntaxError/);
