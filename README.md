@@ -6,6 +6,15 @@ A local npm CLI and reusable JavaScript library that gives your terminal a tiny 
 
 Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API keys. Node.js **22+** required.
 
+## Install from npm
+
+```sh
+npm install --global founder-fightclub
+founder-fightclub demo
+```
+
+Or run without a global install: `npx founder-fightclub demo`.
+
 ## Public project links
 
 - [Package source](https://github.com/yashpanpaliya11/pixel-founder-arena)
@@ -21,7 +30,7 @@ founder-fightclub demo
 
 ## Browser integration
 
-Version 1.2 adds a browser-safe entry point, used by the separate hosted demo:
+The package includes a browser-safe entry point, used by the separate hosted demo:
 
 ```js
 import { createBrowserDemo, founders, classifyError } from 'founder-fightclub/browser';
