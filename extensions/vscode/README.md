@@ -11,7 +11,7 @@ Pixel founders wander along the bottom of **VS Code and Cursor** while you code.
 
 Or use `code --install-extension /path/to/founder-fightclub-0.2.0.vsix`. For Cursor, replace `code` with `cursor`.
 
-This is a downloadable VSIX; it is awaiting publisher access for the VS Code Marketplace. Installing the npm core alone does not add an editor panel.
+The extension is [public on the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=yashpanpaliya11.founder-fightclub). You can also install the VSIX directly. Installing the npm core alone does not add an editor panel.
 
 ## Use
 
