@@ -5,12 +5,12 @@ import { spawn } from 'node:child_process';
 import { createArena, startServer, runCommand, founders } from '../src/index.js';
 
 const help = `
-FOUNDER ARENA  /  pixel startup chaos, useful debugging hints
+FOUNDER FIGHTCLUB  /  pixel startup chaos, useful debugging hints
 
-  founder-arena                          Open your local arena
-  founder-arena demo                     Open the arena and play a sample error
-  founder-arena run [options] -- COMMAND [ARGS...]
-  founder-arena founders                 List all bundled characters
+  founder-fightclub                          Open your local arena
+  founder-fightclub demo                     Open the arena and play a sample error
+  founder-fightclub run [options] -- COMMAND [ARGS...]
+  founder-fightclub founders                 List all bundled characters
 
 Options (place before --):
   --no-open              Print the local URL without opening a browser
@@ -24,9 +24,9 @@ Options (place before --):
   --version, -v          Show version
 
 Examples:
-  founder-arena run --language hinglish -- node app.js
-  founder-arena run -- npm test
-  founder-arena run -- node --watch app.js
+  founder-fightclub run --language hinglish -- node app.js
+  founder-fightclub run -- npm test
+  founder-fightclub run -- node --watch app.js
 
 Runs locally with no API keys. Characters and dialogue are fictional parody.
 The arena stays open after a command by default; Ctrl+C closes it.
@@ -36,7 +36,7 @@ async function main() {
   const argv = process.argv.slice(2);
   const flags = argv.slice(0, argv.indexOf('--') < 0 ? argv.length : argv.indexOf('--'));
   if (flags.includes('--help') || flags.includes('-h')) { console.log(help); return; }
-  if (argv[0] === '--version' || argv[0] === '-v') { console.log('1.3.0'); return; }
+  if (argv[0] === '--version' || argv[0] === '-v') { console.log('1.0.0'); return; }
   let mode = 'serve';
   if (argv[0] && !argv[0].startsWith('-')) mode = argv.shift();
   if (!['serve', 'demo', 'run', 'founders'].includes(mode)) throw new Error(`Unknown command: ${mode}. Use --help.`);
@@ -64,7 +64,7 @@ async function main() {
   if (options.intensity) settings.intensity = options.intensity;
   if (Object.keys(settings).length) arena.updateSettings(settings);
   const service = await startServer(arena, { port: Number(options.port) });
-  console.log(`\n  FOUNDER ARENA\n  ${service.url}\n  ${arena.founders.length} characters • offline • fictional parody\n  Ctrl+C to close\n`);
+  console.log(`\n  FOUNDER FIGHTCLUB\n  ${service.url}\n  ${arena.founders.length} characters • offline • fictional parody\n  Ctrl+C to close\n`);
   if (arena.warning) console.warn(arena.warning);
   if (options.open) {
     let browser;
@@ -98,4 +98,4 @@ async function main() {
   }
 }
 
-main().catch(error => { console.error(`Founder Arena: ${error.message}`); process.exitCode = 1; });
+main().catch(error => { console.error(`Founder Fightclub: ${error.message}`); process.exitCode = 1; });

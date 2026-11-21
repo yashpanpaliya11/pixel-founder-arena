@@ -1,4 +1,4 @@
-# Founder Arena
+# Founder Fightclub
 
 **Big founders. Small pixels. Zero chill.**
 
@@ -15,8 +15,8 @@ Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API 
 Install the public GitHub release with npm:
 
 ```sh
-npm install --global https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/v1.3.0/pixel-founder-arena-1.3.0.tgz
-founder-arena demo
+npm install --global https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/founder-fightclub-v1.0.0/founder-fightclub-1.0.0.tgz
+founder-fightclub demo
 ```
 
 ## Browser integration
@@ -24,7 +24,7 @@ founder-arena demo
 Version 1.2 adds a browser-safe entry point, used by the separate hosted demo:
 
 ```js
-import { createBrowserDemo, founders, classifyError } from 'pixel-founder-arena/browser';
+import { createBrowserDemo, founders, classifyError } from 'founder-fightclub/browser';
 
 const demo = createBrowserDemo({ storage: window.localStorage });
 demo.subscribe(state => console.log(state), event => console.log(event));
@@ -32,7 +32,20 @@ await demo.request('demo', { category: 'syntax' });
 await demo.request('debate', { topic: 'MRR' });
 ```
 
-`createBrowserDemo` drives sample events and browser-local state. It never executes arbitrary code or monitors a visitor's device. Reusable UI resources are exported as `pixel-founder-arena/ui/app.js`, `pixel-founder-arena/ui/style.css`, and `pixel-founder-arena/ui/index.html`. The `mountArena({ transport })` export in the UI module accepts the browser transport; the CLI UI continues to use the local HTTP/SSE server.
+`createBrowserDemo` drives sample events and browser-local state. It never executes arbitrary code or monitors a visitor's device. Reusable UI resources are exported as `founder-fightclub/ui/app.js`, `founder-fightclub/ui/style.css`, and `founder-fightclub/ui/index.html`. The `mountArena({ transport })` export in the UI module accepts the browser transport; the CLI UI continues to use the local HTTP/SSE server.
+
+## Install from npm
+
+```sh
+npm install --global founder-fightclub
+founder-fightclub demo
+```
+
+Or run without a global install:
+
+```sh
+npx founder-fightclub demo
+```
 
 ## Try the delivered source
 
@@ -48,28 +61,28 @@ The command prints a local URL and opens the arena in your default browser. `Ctr
 For an actual error:
 
 ```sh
-node bin/founder-arena.js run --language hinglish -- node examples/broken.js
+node bin/founder-fightclub.js run --language hinglish -- node examples/broken.js
 ```
 
 `examples/broken.js` deliberately references an undefined variable. Read the terminal output, then open **Explain this error + progressive hints** in the arena. For a clean run, use `examples/fixed.js`.
 
 ## Install the tarball
 
-The accompanying `pixel-founder-arena-1.3.0.tgz` is an installable npm package. From the folder containing it:
+The accompanying `founder-fightclub-1.0.0.tgz` is an installable npm package. From the folder containing it:
 
 ```sh
-npm install --global ./pixel-founder-arena-1.3.0.tgz
-founder-arena demo
+npm install --global ./founder-fightclub-1.0.0.tgz
+founder-fightclub demo
 ```
 
 Or install it into another project:
 
 ```sh
-npm install --save-dev /absolute/path/to/pixel-founder-arena-1.3.0.tgz
-npx founder-arena run -- node app.js
+npm install --save-dev /absolute/path/to/founder-fightclub-1.0.0.tgz
+npx founder-fightclub run -- node app.js
 ```
 
-The package has **not** been published to the npm registry as part of this delivery. After it is published under an available name, users can install that name or execute it with `npx`. `founder-arena` is the executable name; `pixel-founder-arena` is the package name.
+The npm package and primary executable are both named `founder-fightclub`. The old `founder-arena` command remains as a compatibility alias.
 
 ## What works in version 1
 
@@ -97,18 +110,18 @@ All characters and their dialogue are fictional parody. Company badges show bran
 In an IDE terminal, run your usual command through the CLI:
 
 ```sh
-founder-arena run -- node app.js
-founder-arena run -- npm test
-founder-arena run -- npm run build
-founder-arena run -- node --watch app.js
+founder-fightclub run -- node app.js
+founder-fightclub run -- npm test
+founder-fightclub run -- npm run build
+founder-fightclub run -- node --watch app.js
 ```
 
-**A single terminal run monitors only the command it wraps.** It does not watch unrelated terminals or editor underlines. `node --watch` re-runs the JavaScript program when watched files change; Founder Arena observes that process output. Start this from your actual project's directory so the command uses the right working directory.
+**A single terminal run monitors only the command it wraps.** It does not watch unrelated terminals or editor underlines. `node --watch` re-runs the JavaScript program when watched files change; Founder Fightclub observes that process output. Start this from your actual project's directory so the command uses the right working directory.
 
 The browser arena stays open after the command finishes, so you can read the reaction and hints. Press `Ctrl+C` to close it. For scripts/CI, use `--exit` to close automatically and return the child command's exit code:
 
 ```sh
-founder-arena run --no-open --exit -- npm test
+founder-fightclub run --no-open --exit -- npm test
 ```
 
 No arbitrary commands can be launched from the web UI. Commands run only when you explicitly supply them to the CLI or library.
@@ -116,10 +129,10 @@ No arbitrary commands can be launched from the web UI. Commands run only when yo
 ## CLI reference
 
 ```text
-founder-arena [serve] [options]
-founder-arena demo [options]
-founder-arena run [options] -- EXECUTABLE [ARGUMENTS...]
-founder-arena founders
+founder-fightclub [serve] [options]
+founder-fightclub demo [options]
+founder-fightclub run [options] -- EXECUTABLE [ARGUMENTS...]
+founder-fightclub founders
 
 --no-open              Do not automatically open a browser
 --port NUMBER          Bind a specific loopback port; default is automatic
@@ -132,9 +145,9 @@ founder-arena founders
 --version / -v         Show version
 ```
 
-Options belong **before** `--`. Everything after it is passed as executable arguments, without shell interpolation. For shell features, intentionally run your shell yourself, e.g. `founder-arena run -- sh -c 'npm test && npm run build'`. Do not pass untrusted text to a shell.
+Options belong **before** `--`. Everything after it is passed as executable arguments, without shell interpolation. For shell features, intentionally run your shell yourself, e.g. `founder-fightclub run -- sh -c 'npm test && npm run build'`. Do not pass untrusted text to a shell.
 
-macOS/Linux direct executable and npm command paths are implemented and tested on macOS. Windows browser opening and npm/npx forwarding are implemented but have not been verified on a Windows host. On Windows use `npm exec -- founder-arena run -- npm test` so the npm CLI path is available, or pass `node` and the script path directly. Windows `.cmd`/`.bat` tools are not launched through an implicit shell. Interactive stdin is forwarded, but stdout/stderr are pipes rather than a pseudo-terminal; highly interactive full-screen CLIs may behave differently.
+macOS/Linux direct executable and npm command paths are implemented and tested on macOS. Windows browser opening and npm/npx forwarding are implemented but have not been verified on a Windows host. On Windows use `npm exec -- founder-fightclub run -- npm test` so the npm CLI path is available, or pass `node` and the script path directly. Windows `.cmd`/`.bat` tools are not launched through an implicit shell. Interactive stdin is forwarded, but stdout/stderr are pipes rather than a pseudo-terminal; highly interactive full-screen CLIs may behave differently.
 
 ## Settings and local data
 
@@ -147,7 +160,7 @@ Background debates run while the arena is visible in a browser tab. Pause quiets
 ## Custom character packs
 
 ```sh
-founder-arena --pack examples/custom-founders.json
+founder-fightclub --pack examples/custom-founders.json
 ```
 
 Example JSON:
@@ -175,7 +188,7 @@ Select the new character in the roster after loading the pack. Each ID must be u
 After installation:
 
 ```js
-import { createArena, startServer, runCommand } from 'pixel-founder-arena';
+import { createArena, startServer, runCommand } from 'founder-fightclub';
 
 const arena = createArena({ persist: false });
 arena.updateSettings({ language: 'hinglish', cooldown: 12 });
@@ -206,7 +219,7 @@ Tests cover real child-process diagnostics, split output chunks, literal argumen
 
 ## Publish your college project
 
-1. Choose an available npm name. `pixel-founder-arena` is a working name; availability is not guaranteed. A scoped name such as `@YOUR_NPM_USERNAME/pixel-founder-arena` is another option. Update `name` in `package.json` if needed, and update API import examples to match.
+1. Choose an available npm name. `founder-fightclub` is the selected package name; availability is checked before publishing. A scoped name such as `@YOUR_NPM_USERNAME/founder-fightclub` is another option. Update `name` in `package.json` if needed, and update API import examples to match.
 2. Add your real author, repository, bugs, and homepage metadata to `package.json` once your repository exists.
 3. Run the checks above and inspect `npm pack --dry-run`.
 4. Sign in to your own npm account with `npm login`, completing browser authentication/2FA yourself.

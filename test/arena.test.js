@@ -147,7 +147,7 @@ test('runner reports success and awards progress for a clean command', async () 
 });
 test('runner handles a missing executable and generic nonzero exit', async () => {
   const arena = makeArena();
-  assert.equal(await runCommand(arena, 'founder-arena-executable-does-not-exist', [], { stdout: sink, stderr: sink }).completion, 127);
+  assert.equal(await runCommand(arena, 'founder-fightclub-executable-does-not-exist', [], { stdout: sink, stderr: sink }).completion, 127);
   const second = makeArena();
   assert.equal(await runCommand(second, process.execPath, ['-e', 'process.exit(7)'], { stdout: sink, stderr: sink }).completion, 7);
   assert.equal(second.events.find(e => e.type === 'error').error.category, 'generic');
@@ -191,7 +191,7 @@ test('CLI --exit returns the child exit code and does not consume child --help',
   const dir = await mkdtemp(join(tmpdir(), 'founder-cli-'));
   try {
     const run = args => new Promise(resolve => {
-      const child = spawn(process.execPath, ['bin/founder-arena.js', 'run', '--no-open', '--exit', '--state', join(dir, 'state.json'), '--', process.execPath, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
+      const child = spawn(process.execPath, ['bin/founder-fightclub.js', 'run', '--no-open', '--exit', '--state', join(dir, 'state.json'), '--', process.execPath, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
       let output = ''; child.stdout.on('data', c => { output += c; }); child.stderr.on('data', c => { output += c; }); child.once('close', code => resolve({ code, output }));
     });
     assert.equal((await run(['-e', 'process.exit(3)'])).code, 3);

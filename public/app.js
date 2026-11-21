@@ -243,7 +243,7 @@ $('settings-form').addEventListener('submit', action(async () => {
   render(await api('settings', { language: $('language').value, intensity: $('intensity').value, cooldown: Number($('cooldown').value), dialogueInterval: Number($('dialogue-interval').value), animationSpeed: Number($('animation-speed').value), sound: enabled }));
   scheduleDebate(); $('settings-panel').close(); notice('Boardroom rules saved.');
 }));
-$('copy-command').addEventListener('click', action(async () => { await navigator.clipboard.writeText('founder-arena run -- node app.js'); notice('Command copied. Run it in your project terminal.'); }));
+$('copy-command').addEventListener('click', action(async () => { await navigator.clipboard.writeText('founder-fightclub run -- node app.js'); notice('Command copied. Run it in your project terminal.'); }));
 
 const online = () => { connected = true; $('connection').classList.remove('disconnected'); $('connection').replaceChildren(node('i'), document.createTextNode(transport ? 'Browser demo' : 'Live connection')); };
 let stream;
