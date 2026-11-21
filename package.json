@@ -4,8 +4,8 @@
   "description": "Pixel tech companions that debate startups, roast coding errors, and offer beginner-friendly hints. Local, offline, and extensible.",
   "type": "module",
   "bin": {
-    "founder-fightclub": "./bin/founder-fightclub.js",
-    "founder-arena": "./bin/founder-fightclub.js"
+    "founder-fightclub": "bin/founder-fightclub.js",
+    "founder-arena": "bin/founder-fightclub.js"
   },
   "exports": {
     ".": {
