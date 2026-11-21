@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--vscode-foreground);
+  background: var(--vscode-panel-background);
+  font: 12px var(--vscode-font-family);
+}
+nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--vscode-panel-border);
+}
+button,
+select {
+  font: inherit;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+button:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+button:focus-visible,
+select:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+}
+main {
+  position: relative;
+  flex: 1;
+  min-height: 165px;
+  overflow: hidden;
+}
+#welcome {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  opacity: 0.55;
+  font-size: 11px;
+}
+#floor {
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+  border-top: 2px dashed var(--vscode-panel-border);
+  height: 1px;
+}
+.actor {
+  position: absolute;
+  bottom: 19px;
+  width: 72px;
+  text-align: center;
+  z-index: 1;
+}
+.sprite {
+  width: 72px;
+  height: 106px;
+  overflow: hidden;
+  position: relative;
+  image-rendering: pixelated;
+  transform-origin: bottom;
+}
+.sprite img {
+  position: absolute;
+  width: 360px;
+  max-width: none;
+  pointer-events: none;
+}
+.name {
+  font-size: 10px;
+  white-space: nowrap;
+  margin-left: -20px;
+  width: 112px;
+  color: var(--vscode-descriptionForeground);
+}
+.bubble {
+  position: absolute;
+  bottom: 125px;
+  left: 36px;
+  transform: translateX(-50%);
+  width: 230px;
+  max-height: 105px;
+  overflow: auto;
+  text-align: left;
+  line-height: 1.35;
+  background: var(--vscode-editorHoverWidget-background);
+  border: 1px solid var(--vscode-editorHoverWidget-border);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--vscode-editorHoverWidget-foreground);
+  box-shadow: 0 3px 8px #0003;
+}
+.actor.speaking {
+  z-index: 3;
+}
+.actor.speaking .sprite {
+  animation: talk 0.28s ease-in-out 6 alternate;
+}
+.actor.walking .sprite {
+  animation: walk 0.25s infinite alternate;
+}
+.actor.celebrate .sprite {
+  animation: jump 0.35s 4 alternate;
+}
+footer {
+  padding: 6px 10px;
+  border-top: 1px solid var(--vscode-panel-border);
+  line-height: 1.5;
+}
+#message {
+  max-height: 40px;
+  overflow: auto;
+}
+#learning {
+  margin-top: 4px;
+}
+#hintText {
+  margin-left: 8px;
+  color: var(--vscode-descriptionForeground);
+}
+[hidden] {
+  display: none !important;
+}
+@keyframes walk {
+  to {
+    transform: translateY(-3px) rotate(2deg);
+  }
+}
+@keyframes talk {
+  to {
+    transform: rotate(-5deg) translateY(-4px);
+  }
+}
+@keyframes jump {
+  to {
+    transform: translateY(-14px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sprite {
+    animation: none !important;
+  }
+}

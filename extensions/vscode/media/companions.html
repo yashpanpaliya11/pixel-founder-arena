@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src {{csp}}; style-src {{csp}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';"
+    />
+    <link rel="stylesheet" href="{{style}}" />
+  </head>
+  <body>
+    <nav>
+      <button id="choose">Founders</button
+      ><button id="indian">Indian cast</button
+      ><select id="language" aria-label="Roast language">
+        <option value="en">English roasts</option>
+        <option value="hinglish">Hinglish roasts</option></select
+      ><select id="topic" aria-label="Debate topic"></select
+      ><button id="debate">Debate</button
+      ><button id="sample">Sample roast</button
+      ><button id="pause">Pause</button>
+    </nav>
+    <main id="stage" aria-label="Pixel founder companions">
+      <div id="welcome">
+        Your founders are here. Keep coding — they react to errors in the active
+        file.
+      </div>
+      <div id="actors"></div>
+      <div id="floor"></div>
+    </main>
+    <footer>
+      <div id="message" role="status">
+        Ready · Local and offline · Fictional parody
+      </div>
+      <div id="learning" hidden>
+        <button id="hint">Next hint</button
+        ><button id="goto">Go to error</button><span id="hintText"></span>
+      </div>
+    </footer>
+    <script nonce="{{nonce}}" src="{{script}}"></script>
+  </body>
+</html>

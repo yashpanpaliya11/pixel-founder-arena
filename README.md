@@ -6,6 +6,18 @@ A local npm CLI and reusable JavaScript library that gives your terminal a tiny 
 
 Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API keys. Node.js **22+** required.
 
+## Use inside VS Code or Cursor
+
+The **IDE companion extension** puts wandering pixel founders in the editor's bottom panel. It uses the published npm engine and reacts to real diagnostics while you type.
+
+1. [Download the VSIX](https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/ide-v0.1.0/founder-fightclub-0.1.0.vsix).
+2. In VS Code / Cursor: **Extensions → … → Install from VSIX…**.
+3. Command Palette → **Founder Fightclub: Open Companions**.
+
+Choose your founders, select English/Hinglish roasts, and keep coding. A reported syntax error triggers a roast plus English hints; resolving all editor errors in the active file triggers a celebration. Startup debates include targeted roasts. [Full extension guide](extensions/vscode/README.md).
+
+**The npm package alone opens a browser arena. Install the extension for the IDE experience.** The VSIX is distributed here on GitHub, not yet through the VS Code Marketplace. Supports VS Code and Cursor; other IDEs are not supported yet.
+
 ## Install from npm
 
 ```sh

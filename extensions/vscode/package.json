@@ -1,0 +1,192 @@
+{
+  "name": "founder-fightclub",
+  "displayName": "Founder Fightclub \u2014 Pixel Coding Companions",
+  "description": "Pixel founders walk along your IDE's bottom panel, roast actual editor errors, and debate startups while you code.",
+  "version": "0.1.0",
+  "publisher": "yashpanpaliya11",
+  "author": "Yash Panpaliya",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Other",
+    "Education"
+  ],
+  "keywords": [
+    "pixel",
+    "pets",
+    "founders",
+    "roast",
+    "coding companion"
+  ],
+  "main": "./src/extension.cjs",
+  "extensionKind": [
+    "ui"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:founderFightclub.companions"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yashpanpaliya11/pixel-founder-arena.git",
+    "directory": "extensions/vscode"
+  },
+  "homepage": "https://github.com/yashpanpaliya11/pixel-founder-arena/tree/main/extensions/vscode",
+  "bugs": {
+    "url": "https://github.com/yashpanpaliya11/pixel-founder-arena/issues"
+  },
+  "scripts": {
+    "check": "node --check src/extension.cjs && node --check src/controller.cjs && node --check media/companions.js",
+    "test": "node --test test/*.test.cjs",
+    "vscode:prepublish": "npm run check",
+    "package": "node -e \"require('node:fs').mkdirSync('../../ide', {recursive:true})\" && vsce package --out ../../ide/founder-fightclub-0.1.0.vsix"
+  },
+  "dependencies": {
+    "founder-fightclub": "1.0.0"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "4.1.1"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "founderFightclub",
+          "title": "Founder Fightclub",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "founderFightclub": [
+        {
+          "type": "webview",
+          "id": "founderFightclub.companions",
+          "name": "Pixel Founders",
+          "contextualTitle": "Founder Fightclub"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "founderFightclub.open",
+        "title": "Founder Fightclub: Open Companions",
+        "icon": "$(smiley)"
+      },
+      {
+        "command": "founderFightclub.chooseFounders",
+        "title": "Founder Fightclub: Choose Founders",
+        "icon": "$(person-add)"
+      },
+      {
+        "command": "founderFightclub.indianCast",
+        "title": "Founder Fightclub: Indian Cast"
+      },
+      {
+        "command": "founderFightclub.togglePause",
+        "title": "Founder Fightclub: Pause / Resume",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "founderFightclub.language",
+        "title": "Founder Fightclub: Set Roast Language"
+      },
+      {
+        "command": "founderFightclub.debate",
+        "title": "Founder Fightclub: Start Founder Debate",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "founderFightclub.sample",
+        "title": "Founder Fightclub: Try a Sample Roast"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "founderFightclub.chooseFounders",
+          "when": "view == founderFightclub.companions",
+          "group": "navigation"
+        },
+        {
+          "command": "founderFightclub.debate",
+          "when": "view == founderFightclub.companions",
+          "group": "navigation"
+        },
+        {
+          "command": "founderFightclub.togglePause",
+          "when": "view == founderFightclub.companions",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Founder Fightclub",
+      "properties": {
+        "founderFightclub.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the pixel companion panel when the IDE starts."
+        },
+        "founderFightclub.language": {
+          "type": "string",
+          "enum": [
+            "en",
+            "hinglish"
+          ],
+          "default": "en",
+          "description": "Language for roasts only. Controls and learning hints remain English."
+        },
+        "founderFightclub.intensity": {
+          "type": "string",
+          "enum": [
+            "chill",
+            "funny",
+            "savage"
+          ],
+          "default": "funny",
+          "description": "Roast intensity."
+        },
+        "founderFightclub.cooldown": {
+          "type": "number",
+          "default": 12,
+          "minimum": 0,
+          "maximum": 300,
+          "description": "Minimum seconds between automatic error reactions."
+        },
+        "founderFightclub.backgroundDebates": {
+          "type": "boolean",
+          "default": true,
+          "description": "Let the founders debate while the panel is visible."
+        },
+        "founderFightclub.debateInterval": {
+          "type": "number",
+          "default": 60,
+          "minimum": 30,
+          "maximum": 600,
+          "description": "Seconds between background startup debates."
+        },
+        "founderFightclub.topic": {
+          "type": "string",
+          "enum": [
+            "MRR",
+            "Marketing",
+            "Bootstrapping",
+            "Competitors",
+            "Product",
+            "AI"
+          ],
+          "default": "MRR",
+          "description": "Background debate topic."
+        }
+      }
+    }
+  }
+}
