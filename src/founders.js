@@ -24,14 +24,24 @@ const rows = [
   ['ilya', 'Ilya Sutskever', 'SSI', 'Deep learning & safety', 'learning', '#ddd1ef'],
   ['dylan', 'Dylan Field', 'Figma', 'Design & collaboration', 'collaboration', '#c6a8ff'],
   ['patrick', 'Patrick Collison', 'Stripe', 'Payments & infrastructure', 'payments', '#afa0ff'],
+  ['anupam', 'Anupam Mittal', 'Shaadi.com', 'Marketplaces & matching', 'matchmaking', '#ed879f'],
+  ['peyush', 'Peyush Bansal', 'Lenskart', 'Customer focus & retail', 'eyewear', '#bfe46d'],
+  ['aadit', 'Aadit Palicha', 'Zepto', 'Quick commerce & speed', 'quickcommerce', '#b39bff'],
+  ['kaivalya', 'Kaivalya Vohra', 'Zepto', 'Operations & execution', 'operations', '#c4a4ff'],
+  ['aman', 'Aman Gupta', 'boAt', 'Branding & distribution', 'branding', '#f28f89'],
+  ['vineeta', 'Vineeta Singh', 'SUGAR Cosmetics', 'Brand building & customers', 'beauty', '#ee8cc0'],
+  ['ritesh', 'Ritesh Agarwal', 'OYO', 'Hospitality & experience', 'hospitality', '#ff8b95'],
+  ['deepinder', 'Deepinder Goyal', 'Zomato', 'Delivery & product execution', 'delivery', '#f8848f'],
+  ['nithin', 'Nithin Kamath', 'Zerodha', 'Bootstrapping & simplicity', 'leanfinance', '#85b4f1'],
+  ['nikhil', 'Nikhil Kamath', 'Zerodha', 'Capital & long-term thinking', 'capital', '#9ec7f4'],
 ];
 
 /** Fictional game personalities; company badges indicate association, not current roles. */
 export const founders = rows.map(([id, name, company, specialty, archetype, color], i) => ({
   id, name, company, specialty, archetype, color,
-  sheet: i < 15 ? 'founders' : 'tech',
+  sheet: i < 15 ? 'founders' : i < 25 ? 'tech' : 'india',
   column: i % 5,
-  row: i < 15 ? Math.floor(i / 5) : Math.floor((i - 15) / 5),
+  row: Math.floor((i < 15 ? i : i < 25 ? i - 15 : i - 25) / 5),
   rows: i < 15 ? 3 : 2,
 }));
 

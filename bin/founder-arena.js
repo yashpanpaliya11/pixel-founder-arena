@@ -36,7 +36,7 @@ async function main() {
   const argv = process.argv.slice(2);
   const flags = argv.slice(0, argv.indexOf('--') < 0 ? argv.length : argv.indexOf('--'));
   if (flags.includes('--help') || flags.includes('-h')) { console.log(help); return; }
-  if (argv[0] === '--version' || argv[0] === '-v') { console.log('1.2.0'); return; }
+  if (argv[0] === '--version' || argv[0] === '-v') { console.log('1.3.0'); return; }
   let mode = 'serve';
   if (argv[0] && !argv[0].startsWith('-')) mode = argv.shift();
   if (!['serve', 'demo', 'run', 'founders'].includes(mode)) throw new Error(`Unknown command: ${mode}. Use --help.`);

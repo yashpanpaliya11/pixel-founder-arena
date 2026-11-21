@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
-const staticFiles = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'], '/assets/founders.png': ['assets/founders.png', 'image/png'], '/assets/tech.png': ['assets/tech.png', 'image/png'] };
+const staticFiles = { '/': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'], '/style.css': ['style.css', 'text/css; charset=utf-8'], '/assets/founders.png': ['assets/founders.png', 'image/png'], '/assets/tech.png': ['assets/tech.png', 'image/png'], '/assets/india.png': ['assets/india.png', 'image/png'] };
 const samples = {
   syntax: 'SyntaxError: Unexpected token ")"\n    at example.js:12:8',
   reference: 'ReferenceError: total is not defined\n    at example.js:8:3',

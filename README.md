@@ -15,7 +15,7 @@ Runs offline. No accounts, model calls, telemetry, runtime dependencies, or API 
 Install the public GitHub release with npm:
 
 ```sh
-npm install --global https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/v1.2.0/pixel-founder-arena-1.2.0.tgz
+npm install --global https://github.com/yashpanpaliya11/pixel-founder-arena/releases/download/v1.3.0/pixel-founder-arena-1.3.0.tgz
 founder-arena demo
 ```
 
@@ -55,17 +55,17 @@ node bin/founder-arena.js run --language hinglish -- node examples/broken.js
 
 ## Install the tarball
 
-The accompanying `pixel-founder-arena-1.2.0.tgz` is an installable npm package. From the folder containing it:
+The accompanying `pixel-founder-arena-1.3.0.tgz` is an installable npm package. From the folder containing it:
 
 ```sh
-npm install --global ./pixel-founder-arena-1.2.0.tgz
+npm install --global ./pixel-founder-arena-1.3.0.tgz
 founder-arena demo
 ```
 
 Or install it into another project:
 
 ```sh
-npm install --save-dev /absolute/path/to/pixel-founder-arena-1.2.0.tgz
+npm install --save-dev /absolute/path/to/pixel-founder-arena-1.3.0.tgz
 npx founder-arena run -- node app.js
 ```
 
@@ -73,7 +73,8 @@ The package has **not** been published to the npm registry as part of this deliv
 
 ## What works in version 1
 
-- 25 bundled pixel characters holding company-logo badges; choose two to five for your active cast.
+- 35 bundled pixel characters holding company-logo badges; choose two to five for your active cast.
+- **Indian cast** preset: Anupam Mittal (Shaadi.com), Peyush Bansal (Lenskart), Aadit Palicha and Kaivalya Vohra (Zepto), and Aman Gupta (boAt). Also selectable: Vineeta Singh, Ritesh Agarwal, Deepinder Goyal, Nithin Kamath, and Nikhil Kamath. Each has company-badge artwork and fictional character-specific banter.
 - Topic-specific founder-versus-founder roasts with rotating speakers, direct targets, and replies. Debate roasts follow the English/Hinglish and intensity settings; practical advice stays English.
 - Idle, talking, attack/lunge, and celebration motions applied to static character art.
 - Scripted debates about MRR, marketing, bootstrapping, competitors, product, and AI.

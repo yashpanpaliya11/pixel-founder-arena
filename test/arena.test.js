@@ -9,9 +9,23 @@ import { createArena, founders, classifyError, createDebate, chooseRoast, runCom
 const makeArena = () => createArena({ persist: false });
 const sink = { write() {} };
 
-test('all 25 bundled characters have unique IDs and valid sprite cells', () => {
-  assert.equal(founders.length, 25); assert.equal(new Set(founders.map(f => f.id)).size, 25);
+test('all 35 bundled characters have unique IDs and valid sprite cells', () => {
+  assert.equal(founders.length, 35); assert.equal(new Set(founders.map(f => f.id)).size, 35);
   for (const f of founders) { assert.ok(f.column >= 0 && f.column < 5); assert.ok(f.row >= 0 && f.row < f.rows); }
+});
+test('Indian founders have matching sprite cells, badges, and character dialogue', () => {
+  const india = founders.filter(f => f.sheet === 'india');
+  assert.equal(india.length, 10);
+  assert.equal(india.find(f => f.id === 'anupam').company, 'Shaadi.com');
+  assert.equal(india.find(f => f.id === 'peyush').company, 'Lenskart');
+  assert.equal(india.find(f => f.id === 'aadit').company, 'Zepto');
+  assert.equal(india.find(f => f.id === 'kaivalya').company, 'Zepto');
+  for (const f of india) {
+    const line = chooseRoast({ founder: f, category: 'syntax', language: 'hinglish', random: () => 0 });
+    assert.ok(line.length > 40);
+    const debate = createDebate({ topic: 'Marketing', cast: [f, founders[0]], random: () => 0 });
+    assert.ok(debate.lines.every(l => l.founderId !== l.targetId && l.roast.length > 20));
+  }
 });
 test('classifies real JavaScript diagnostics and preserves file locations', () => {
   for (const [text, category] of [['SyntaxError: Unexpected token )', 'syntax'], ['ReferenceError: total is not defined', 'reference'], ["TypeError: Cannot read properties of undefined", 'type'], ["Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'foo'", 'module'], ['RangeError: Maximum call stack size exceeded', 'range'], ['AssertionError: expected 1 got 2', 'test']]) {
@@ -151,6 +165,7 @@ test('server requires a token, rejects foreign origins, serves assets, and handl
     assert.equal((await fetch(`${service.url}/api/state`, { headers: { ...headers, Origin: 'https://example.com' } })).status, 403);
     const page = await fetch(service.url); assert.equal(page.status, 200); assert.match(await page.text(), new RegExp(service.token));
     const image = await fetch(`${service.url}/assets/founders.png`); assert.equal(image.headers.get('content-type'), 'image/png'); assert.ok((await image.arrayBuffer()).byteLength > 10000);
+    const indianArt = await fetch(`${service.url}/assets/india.png`); assert.equal(indianArt.status, 200); assert.equal(indianArt.headers.get('content-type'), 'image/png'); assert.ok((await indianArt.arrayBuffer()).byteLength > 10000);
     const changed = await fetch(`${service.url}/api/settings`, { method: 'POST', headers, body: JSON.stringify({ language: 'hinglish' }) }); assert.equal(changed.status, 200);
     await fetch(`${service.url}/api/demo`, { method: 'POST', headers, body: JSON.stringify({ category: 'syntax' }) });
     const state = await (await fetch(`${service.url}/api/state`, { headers })).json();
