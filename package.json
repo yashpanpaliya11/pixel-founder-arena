@@ -1,0 +1,59 @@
+{
+  "name": "pixel-founder-arena",
+  "version": "1.2.0",
+  "description": "Pixel tech companions that debate startups, roast coding errors, and offer beginner-friendly hints. Local, offline, and extensible.",
+  "type": "module",
+  "bin": {
+    "founder-arena": "./bin/founder-arena.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./browser": {
+      "types": "./src/browser.d.ts",
+      "import": "./src/browser.js"
+    },
+    "./ui/app.js": "./public/app.js",
+    "./ui/style.css": "./public/style.css",
+    "./ui/index.html": "./public/index.html"
+  },
+  "files": [
+    "bin",
+    "src",
+    "public",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "ASSETS.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node bin/founder-arena.js",
+    "demo": "node bin/founder-arena.js demo",
+    "test": "node --test",
+    "check": "node scripts/check.js",
+    "prepublishOnly": "npm run check && npm test"
+  },
+  "keywords": [
+    "pixel-art",
+    "coding",
+    "learning",
+    "cli",
+    "developer-tools",
+    "roast",
+    "founders"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashpanpaliya11/pixel-founder-arena.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yashpanpaliya11/pixel-founder-arena/issues"
+  },
+  "homepage": "https://github.com/yashpanpaliya11/pixel-founder-arena#readme"
+}

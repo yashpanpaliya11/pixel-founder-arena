@@ -1,0 +1,4 @@
+node_modules/
+.founder-arena/
+*.tgz
+.DS_Store

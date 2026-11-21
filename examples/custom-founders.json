@@ -1,0 +1,13 @@
+[
+  {
+    "id": "rubber-duck",
+    "name": "Rubber Duck",
+    "company": "Your desk",
+    "specialty": "Asking what your code actually does",
+    "color": "#efcf66",
+    "roasts": {
+      "en": ["Explain that line to me. Slowly. I am literally a duck.", "Quack. That is duck for: check your variable scope."],
+      "hinglish": ["Bhai, main duck hoon. Phir bhi bracket dikh gaya.", "Code mujhe samjha de, shayad bug tujhe samajh aa jaye."]
+    }
+  }
+]
